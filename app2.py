@@ -119,22 +119,12 @@ def global_search_mask(df: pd.DataFrame, q: str, columns: list[str]) -> pd.Serie
 with st.sidebar:
     st.header("📂 Data")
     uploaded = st.file_uploader("Upload CSV/Excel (semicolon-CSV understøttes)", type=['csv', 'xls', 'xlsx'], accept_multiple_files=False)
-    demo = st.checkbox("Brug demo-data (fra prompten)", value=False)
 
 # Byg DataFrame
 if uploaded is not None:
     df = read_any(uploaded)
-elif demo:
-    demo_text = """Bogføringsdato;Beløb;Afsender;Modtager;Navn;Beskrivelse;Saldo;Valuta;Afstemt;Konto;Owner;Dato;_blob;_blob_norm;Hovedkategori;Underkategori;Detalje;InternOverførsel
-2025/10/01;-5048.0;9028218874;;;SANTANDER CONSUMER B;4798,53;DKK;;9028218874;Budget;2025-10-01;9028218874   SANTANDER CONSUMER B;9028218874 santander consumer b;Faste udgifter;Gældsafvikling;Billån;False
-2025/10/01;-2652.0;9028218874;;;BØRNEHUSET VALLERØD;9846,53;DKK;;9028218874;Budget;2025-10-01;9028218874   BØRNEHUSET VALLERØD;9028218874 bornehuset vallerod;Faste udgifter;Børnehave;;False
-2025/10/01;-1497.0;9028218874;;;AKADEMIKERNES A-KASS;12498,53;DKK;;9028218874;Budget;2025-10-01;9028218874   AKADEMIKERNES A-KASS;9028218874 akademikernes a kass;Faste udgifter;Fag/A-kasse;;False
-2025/10/01;-1371.25;9028218874;;;TRYG;13995,53;DKK;;9028218874;Budget;2025-10-01;9028218874   TRYG;9028218874 tryg;Faste udgifter;Forsikringer;;False
-2025/10/01;-51.96;9028218874;;;TRYG;15366,78;DKK;;9028218874;Budget;2025-10-01;9028218874   TRYG;9028218874 tryg;Faste udgifter;Forsikringer;;False
-"""
-    df = pd.read_csv(io.StringIO(demo_text), sep=';')
 else:
-    st.info("Upload en fil i sidepanelet eller slå 'Brug demo-data' til.")
+    st.info("Upload en fil i sidepanelet")
     st.stop()
 
 # Normaliser & berig
